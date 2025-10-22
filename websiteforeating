@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Order App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<Style>	
+body {
+      background: linear-gradient(135deg, #ece9e6, #ffffff);
+      font-family: 'Poppins', sans-serif;
+      padding: 30px;
+    }
+      .promo-box {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      margin-bottom: 25px;
+    }
+    .promo-slide {
+      padding: 40px 20px;
+      color: #fff;
+      text-align: center;
+    }
+     .chat-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 15px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+    }
+    .chat-header {
+      background: linear-gradient(90deg, #f6d365, #fda085);
+      padding: 12px;
+      border-radius: 15px;
+      color: white;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+#chat-area { min-height: 250px;  }
+    .bubble {
+      max-width: 75%;
+      padding: 10px 15px;
+      border-radius: 18px;
+      margin: 8px 0;
+      display: inline-block;
+      clear: both;
+      animation: fadeIn 0.4s ease;
+    }
+    .bubble.system {
+      background: #f1f1f1;
+      float: left;
+    }
+
+    .bubble.user {
+      background: #d1ecf1;
+      float: right;
+    }
+    .options {
+      margin: 10px 0;
+      clear: both;
+    }
+    .option-btn {
+      margin: 5px 5px 0 0;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.9rem;
+      transition: 0.3s;
+    }
+    .options {
+      margin: 10px 0;
+      clear: both; } 
+
+    .option-btn {
+      margin: 5px 5px 0 0;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.9rem;
+      transition: 0.3s; } 
+
+   .option-btn:hover {transform: scale(1.05); }
+@keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+</style>
+</head>
+<Body>
+<!-- Promo Carousel -->
+  <div id="promoCarousel" class="carousel slide promo-box" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="promo-slide" style="background: linear-gradient(135deg, #ffecd2, #fcb69f);">
+          <h2><i class="fa-solid fa-burger"></i> Promo Spesial!</h2>
+          <p>Dapatkan <strong>diskon 20%</strong> untuk semua menu hari ini</p>
+        </div>
+      </div> 
+    </div> 
+</div>
+</div>
+ <div class="carousel-item">
+        <div class="promo-slide" style="background: linear-gradient(135deg, #c3cfe2, #e2ebf0);">
+          <h2><i class="fa-solid fa-ice-cream"></i> Gratis Dessert</h2>
+          <p>Beli 2 menu utama, gratis 1 dessert favorit 🍨🍰</p>
+        </div>
+      </div> 
+</div> 
+</div>
+</div>
+      <div class="carousel-item">
+        <div class="promo-slide" style="background: linear-gradient(135deg, #89f7fe, #66a6ff);">
+          <h2><i class="fa-solid fa-mug-hot"></i> Happy Hour</h2>
+          <p>Diskon minuman 50% setiap jam 2–5 sore ☕🥤</p>
+        </div>
+      </div>
+</div> 
+</div>
+<div class="chat-box">
+    <div class="chat-header">🍴 Warung Online Trimulia </div>
+    <div id="chat-area">
+      <div class="bubble system">Apa yang kamu mau pesan? </div>
+      <div class="options" id="start-options">
+        <button class="btn btn-warning option-btn" onclick="tulisMenu()">✏️ Tulis Menu</button>
+        <button class="btn btn-success option-btn" onclick="lihatRekomendasi()">⭐ Lihat Rekomendasi</button>
+      </div>
+    </div>
+  </div>
+
+
+	<Script>     
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+    </script>
+    <script>
+    function clearOptions(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+    function addSystemMessage(text) {
+      document.getElementById("chat-area").innerHTML += 
+        `<div class="bubble system">${text}</div>`;
+    }
+    function addUserMessage(text) {
+      document.getElementById("chat-area").innerHTML += 
+        `<div class="bubble user">${text}</div>`;
+      scrollToBottom();
+    }
+    function scrollToBottom() {
+      const chatArea = document.getElementById("chat-area");
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+    function tulisMenu() {
+      clearOptions("start-options");
+      addUserMessage("✏️ Tulis Menu");
+      addSystemMessage("Silahkan ketikkan menunya ya...");
+    }
+    function lihatRekomendasi() {
+      clearOptions("start-options");
+      addUserMessage("⭐ Lihat Rekomendasi");
+      addSystemMessage("Baiklah, kalau kamu ingin makan :");
+      document.getElementById("chat-area").innerHTML += `
+        <div class="options" id="rekomendasi-options">
+          <button class="btn btn-danger option-btn" onclick="chooseOption('🍲 Berat')">🍲 Berat</button>
+          <button class="btn btn-info option-btn" onclick="chooseOption('🍿 Snack')">🍿 Snack</button>
+        </div>`;    }
+    function scrollToBottom() {
+      const chatArea = document.getElementById("chat-area");
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    </Script>
+</body>
+</html
