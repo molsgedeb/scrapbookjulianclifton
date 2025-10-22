@@ -192,6 +192,92 @@
     addUserMessage(option);
     addSystemMessage("Pilihan kamu: " + option);
   }
+   function scrollToBottom() {
+      const chatArea = document.getElementById("chat-area");
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+    function chooseOption(type) {
+  clearOptions("rekomendasi-options");
+  addUserMessage(type);
+
+  if (type === '🍲 Berat') {
+    addSystemMessage("Pilih jenis makanan berat:");
+    document.getElementById("chat-area").innerHTML += `
+      <div class="options" id="berat-options">
+        <button class="btn btn-warning option-btn" onclick="showBeratOptions('Nasi')">Nasi</button>
+        <button class="btn btn-warning option-btn" onclick="showBeratOptions('Mie')">Mie</button>
+      </div>`;
+  } else if (type === '🍿 Snack') {
+    addSystemMessage("Pilih jenis snack:");
+    document.getElementById("chat-area").innerHTML += `
+      <div class="options" id="snack-options">
+        <button class="btn btn-warning option-btn" onclick="showSnackOptions('Kentang')">Kentang</button>
+        <button class="btn btn-warning option-btn" onclick="showSnackOptions('Tahu')">Tahu</button>
+      </div>`;
+  } else if (type === '🍨 Dessert') {
+    addSystemMessage("Pilih jenis dessert:");
+    document.getElementById("chat-area").innerHTML += `
+      <div class="options" id="dessert-options">
+        <button class="btn btn-warning option-btn" onclick="showDessertOptions('Ice Cream')">Ice Cream</button>
+        <button class="btn btn-warning option-btn" onclick="showDessertOptions('Juice')">Juice</button>
+      </div>`;
+  }
+}
+
+// --- Makanan Berat ---
+function showBeratOptions(category) {
+  clearOptions("berat-options");
+  addUserMessage(category);
+  let menuList = category === 'Nasi' 
+    ? ['Nasi Goreng', 'Nasi Fuyunghai', 'Nasi Chicken Teriyaki'] 
+    : ['Mie Goreng', 'Mie Siram Sapi', 'Mie Baso Pangsit'];
+
+  addSystemMessage(`Silakan pilih menu ${category}:`);
+  showMenuOptions(menuList);
+  `<div class="bubble system">${text}</div>`;
+  scrollToBottom(); 
+}
+
+// --- Snack ---
+function showSnackOptions(category) {
+  clearOptions("snack-options");
+  addUserMessage(category);
+  let menuList = category === 'Kentang' 
+    ? ['Bumbu Balado', 'Bumbu Keju', 'Bumbu Seaweed'] 
+    : ['Lada Garam', 'Krispi Mayonaise', 'Salted Egg'];
+
+  addSystemMessage(`Silakan pilih varian ${category}:`);
+  showMenuOptions(menuList);
+}
+
+// --- Dessert ---
+function showDessertOptions(category) {
+  clearOptions("dessert-options");
+  addUserMessage(category);
+  let menuList = category === 'Ice Cream' 
+    ? ['Vanila', 'Coklat', 'Matcha'] 
+    : ['Strawberry', 'Mangga', 'Alpukat'];
+
+  addSystemMessage(`Silakan pilih rasa ${category}:`);
+  showMenuOptions(menuList);
+}
+
+// --- Helper Function ---
+function showMenuOptions(menuArray) {
+  let buttons = menuArray.map(item => 
+    `<button class="btn btn-success option-btn" onclick="addToOrder('${item}')">${item}</button>`
+  ).join('');
+  document.getElementById("chat-area").innerHTML += `<div class="options" id="menu-options">${buttons}</div>`;
+}
+
+function addToOrder(item) {
+  clearOptions("menu-options");
+  addUserMessage(item);
+  addSystemMessage(`✅ ${item} berhasil ditambahkan ke pesanan Anda!`);
+  scrollToBottom();
+  `<div class="bubble system">${text}</div>`;
+  scrollToBottom(); 
+}
 </script>
 
 </body>
